@@ -1,9 +1,6 @@
 package mostwantedletter
 
-import (
-	"unicode"
-	"unicode/utf8"
-)
+import "unicode"
 
 func checkio(text string) rune {
 	histogram := countLetter(text)
@@ -12,9 +9,8 @@ func checkio(text string) rune {
 
 func countLetter(text string) [26]int {
 	var histogram [26]int
-	for len(text) > 0 {
+	for _, r := range text {
 		index := -1
-		r, size := utf8.DecodeRuneInString(text)
 		if unicode.IsLower(r) {
 			index = int(r - 'a')
 		} else if unicode.IsUpper(r) {
@@ -23,8 +19,6 @@ func countLetter(text string) [26]int {
 		if index > -1 {
 			histogram[index]++
 		}
-
-		text = text[size:]
 	}
 	return histogram
 }
