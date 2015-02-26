@@ -6,6 +6,11 @@ import (
 )
 
 func checkio(text string) rune {
+	histogram := countLetter(text)
+	return findMostLetter(histogram)
+}
+
+func countLetter(text string) [26]int {
 	var histogram [26]int
 	for len(text) > 0 {
 		index := -1
@@ -21,7 +26,10 @@ func checkio(text string) rune {
 
 		text = text[size:]
 	}
+	return histogram
+}
 
+func findMostLetter(histogram [26]int) rune {
 	mostIndex := -1
 	mostCount := -1
 	for i, n := range histogram {
@@ -30,6 +38,5 @@ func checkio(text string) rune {
 			mostCount = n
 		}
 	}
-
 	return rune(mostIndex) + 'a'
 }
